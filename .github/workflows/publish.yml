@@ -1,30 +1,37 @@
-name: npm
+name: Publish to npm
+
 on:
-  release:
-    types: [published]
-  workflow_dispatch:
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+  push:
+    branches:
+      - main
+    paths:
+      - "package.json" # run only when package.json changes
+
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
-          registry-url: "https://registry.npmjs.org"
-      - run: npm ci
-      - run: npm publish --tag latest --provenance --access public
+          node-version: 20
+          registry-url: "https://registry.npmjs.org/"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build package
+        run: npm run prepare || true
+
+      - name: Show package name + version
+        run: |
+          echo "Publishing $(node -p "require('./package.json').name")@$(node -p "require('./package.json').version")"
+
+      - name: Publish to npm
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npm run build-storybook
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: storybook-static
-      - id: deploy
-        uses: actions/deploy-pages@v4
-        with:
-          token: ${{ github.token }}

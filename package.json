@@ -1,22 +1,17 @@
 {
-  "name": "@corbe30/fortune-excel",
+  "name": "@evidential/fortune-excel",
   "workspaces": [
     "src/*"
   ],
-  "version": "1.2.5",
-  "description": "An Excel import/export import library for FortuneSheet",
+  "version": "0.0.1",
+  "description": "Fork of An Excel import/export import library for FortuneSheet made for Evidential",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
-  "keywords": [
-    "fortunesheet",
-    "spreadsheet",
-    "excel"
-  ],
-  "author": "shashankc1705@gmail.com",
-  "homepage": "https://corbe30.github.io/FortuneExcel",
+  "homepage": "https://github.com/evidential/fortune-excel",
+  "author": "will.moran@evidential.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Corbe30/FortuneExcel.git"
+    "url": "git+https://github.com/EvidentialLtd/FortuneExcel.git"
   },
   "license": "MIT",
   "devDependencies": {
