@@ -28,6 +28,15 @@ export const transformExcelToFortune = async (
     }, 1);
 };
 
+
+export const transformExcelToFortuneJson = async (excelFileBuffer: any) => {
+    const files = await new HandleZip(excelFileBuffer).unzipFile();
+    const fortuneFile = new FortuneFile(files, excelFileBuffer.name);
+    fortuneFile.Parse();
+
+    return fortuneFile.serialize(); 
+}
+
 export const transformFortuneToExcel = async (
     luckysheetRef: any
 ) => {
